@@ -27,9 +27,9 @@
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
     </div>
     <div class="container mt-5">
         <center><h1 class="mb-4">Add Invoices</h1></center>
@@ -63,7 +63,7 @@
                 <input type="text" id="description" name="description" class="form-control">
             </div>
             <center><button type="submit" style="margin-right: 20px" class="btn glow-on-hover">Add Invoice</button>
-            <a href="{{ url_for('invoiceInventory') }}" style="margin-left: 20px"class="btn glow-on-hover">View Invoices</a></center>
+            <a href="{{ url_for('invoiceInventory') }}" style="margin-left: 20px"class="btn glow-on-hover-g">View Invoices</a></center>
         </form>
         <br>
         

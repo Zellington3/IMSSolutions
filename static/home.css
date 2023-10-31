@@ -12,7 +12,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	background: linear-gradient(to bottom, grey, black); /*fiolet*/
+	background: linear-gradient(to bottom, rgb(160, 160, 160), black); /*fiolet*/
 }
 .container {
 	width: 1000px;

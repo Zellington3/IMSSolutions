@@ -30,9 +30,9 @@
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Invoices</b></a>
     </div>
     <div class="container">
         <br>
@@ -63,9 +63,9 @@
                     <td>{{ part.date }}</td>
                     <td>{{ part.description }}</td>
                     <td>
-                        <center><a href="{{ url_for('edit_part', item_id=part.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover">Update</a>
+                        <center><a href="{{ url_for('edit_part', item_id=part.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover-b">Update</a>
                         <form action="{{ url_for('delete_part', item_id=part.id) }}" method="POST" style="display:inline;">
-                            <button type="submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover">Delete</button></center>
+                            <button type="submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover-b">Delete</button></center>
                         </form>
                     </td>
                 </tr>
@@ -73,7 +73,7 @@
             </tbody> 
         </table>
         <br>
-        <center><a href="{{ url_for('partAddTo') }}" class="btn glow-on-hover"> Add Part </a></center>
+        <center><a href="{{ url_for('partAddTo') }}" class="btn glow-on-hover-b"> Add Part </a></center>
     </div>
     <!-- Add Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

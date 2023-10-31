@@ -25,6 +25,7 @@
 
 
 .nav-bar {
+    color: black;
     background-color: #333;
     display: flex;
     justify-content: space-between;
@@ -57,7 +58,175 @@
     padding: 8px;
     text-align: left;
 }
+/*GLOW ON HOVER GREEN COLORS*/
+.glow-on-hover-g {
+    font-family: Arial;
+    width: 150px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: rgb(36, 36, 36);;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
 
+.glow-on-hover-g:before {
+    content: '';
+    background: linear-gradient(45deg, #1eff4414, #1eff4443, #1eff4465, #1eff448d, #1eff44a1, #1eff44c4, #1eff44dc, #1eff45, #1eff45);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 30s linear infinite;;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+
+.glow-on-hover-g:hover:before {
+    opacity: 1;
+}
+.glow-on-hover-g:active {
+    color: #000000;
+}
+
+.glow-on-hover-g:active:after {
+    background: transparent;
+}
+
+.glow-on-hover-g:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+/*GLOW ON HOVER BLUE COLORS*/
+.glow-on-hover-b {
+    font-family: Arial;
+    width: 150px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: rgb(36, 36, 36);;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover-b:before {
+    content: '';
+    background: linear-gradient(45deg, #2db2ff16, #2db2ff3d, #2db2ff80, #2db2ff9c, #2db2ffa8, #2db2ffc9, #2db2ffe2, #2db2ff, #2db2ff);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 30s linear infinite;;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+
+.glow-on-hover-b:hover:before {
+    opacity: 1;
+}
+.glow-on-hover-b:active {
+    color: #000000;
+}
+
+.glow-on-hover-b:active:after {
+    background: transparent;
+}
+
+.glow-on-hover-b:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+/*GLOW ON HOVER RED COLORS*/
+.glow-on-hover-r {
+    font-family: Arial;
+    width: 150px;
+    height: 40px;
+    border: none;
+    outline: none;
+    color: #000000;
+    background: rgb(36, 36, 36);
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover-r:before {
+    content: '';
+    background: linear-gradient(45deg, #ff00002b, #ff00004d, #ff000073, #ff000091, #ff0000b3, #ff0000ce, #ff0000e9, #ff0000, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 30s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover-r:active {
+    color: #000000;
+}
+
+.glow-on-hover-r:active:after {
+    background: transparent;
+}
+
+.glow-on-hover-r:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover-r:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+/* GLOW ON HOVER DEFAULT COLORS*/
 .glow-on-hover {
     font-family: Arial;
     width: 150px;

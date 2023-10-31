@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Invoices</b></a>
     </div>
     <div class="container mt-5">
         <center><h1 class="mb-4">Update Parts</h1></center>
@@ -55,8 +55,8 @@
                 <label for="description">Description (Optional):</label>
                 <input type="text" id="description" name="description" class="form-control" value="{% if item.description %}{{ item.description }}{% endif %}">
             </div>
-           <center> <button type="submit" style = "margin-right: 20px;" class="btn glow-on-hover">Update Part</button>
-            <a href="{{ url_for('partInventory') }}" style = "margin-left: 20px;" class="btn glow-on-hover">Back to Parts</a> </center>
+           <center> <button type="submit" style = "margin-right: 20px;" class="btn glow-on-hover-b">Update Part</button>
+            <a href="{{ url_for('partInventory') }}" style = "margin-left: 20px;" class="btn glow-on-hover-b">Back to Parts</a> </center>
         </form>
         <br>
         

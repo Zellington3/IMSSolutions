@@ -30,9 +30,9 @@
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
     </div>
 
     <div class="container">
@@ -66,9 +66,9 @@
                     <td>{{ item.date }}</td>
                     <td>{{ item.description }}</td>
                     <td>
-                        <center><a href="{{ url_for('edit_invoice', item_id=item.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover">Update</a>
+                        <center><a href="{{ url_for('edit_invoice', item_id=item.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover-g">Update</a>
                         <form action="{{ url_for('delete_invoice', item_id=item.id) }}" method="POST" style="display:inline;">
-                            <button type= "submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover">Delete</button></center>
+                            <button type= "submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover-g">Delete</button></center>
                         </form>
                     </td>
                 </tr>
@@ -77,7 +77,7 @@
         </table>
         <br>
         <!--TODO THIS IS ONLY TEMPORARY LINKED TO PARTINV FOR TESTING-->
-        <center><a href="{{ url_for('invoiceAddTo') }}" class="btn glow-on-hover"> Add Invoice </a></center>
+        <center><a href="{{ url_for('invoiceAddTo') }}" class="btn glow-on-hover-g"> Add Invoice </a></center>
     </div>
     <!-- Add Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
