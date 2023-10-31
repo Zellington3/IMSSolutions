@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        
+        body {
+            background-color: rgb(36, 36, 36);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="title-bar">
+        <div class="title-content">
+            <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
+            
+            <!-- Website title -->
+            <h1 class="title-text">IMS Solutions</h1>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="nav-bar">
+        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+    </div>
+
+    <div class="container">
+        <br>
+        <br>
+        <center><h1>Orders</h1></center>
+        <br>
+        <center><input type="text" id="myInput" placeholder="Search Table..."></center>
+        <br>
+        <table id="myTable" class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Cost Price</th>
+                    <th>Selling Price</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.cost_price }}</td>
+                    <td>{{ item.selling_price }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>
+                        <center><a href="{{ url_for('edit_item', item_id=item.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover">Update</a>
+                        <form action="{{ url_for('delete_item', item_id=item.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover">Delete</button></center>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+        <br>
+        <center><a href="{{ url_for('ordersAddTo') }}" class="btn glow-on-hover"> Add Order </a></center>
+    </div>
+    <!-- Add Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").keyup(function () {
+                var searchTerm = $("#myInput").val().toLowerCase();
+                var listItem = $('#myTable tbody').children('tr');
+
+                $("#myTable tbody tr").each(function () {
+                    var row = $(this);
+                    var found = false;
+                    row.find('td').each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchTerm) > -1) {
+                            found = true;
+                        }
+                    });
+
+                    if (found) {
+                        row.attr('visible', 'true').show();
+                    } else {
+                        row.attr('visible', 'false').hide();
+                    }
+                });
+
+                var itemCount = $('#myTable tbody tr[visible="true"]').length;
+
+                if (itemCount == '0') {
+                    // Show 'No results found' if you have a dedicated element for it
+                } else {
+                    // Hide 'No results found' if you have a dedicated element for it
+                }
+            });
+        });
+    </script>
+</body>
+</html>

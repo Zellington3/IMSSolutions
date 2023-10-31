@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: rgb(36, 36, 36);
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+
+        </style>
+</style>
+</head>
+<body>
+    <div class="title-bar">
+        <div class="title-content">
+            <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
+            
+            <!-- Website title -->
+            <h1 class="title-text">IMS Solutions</h1>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="nav-bar">
+        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+    </div>
+    <div class="container">
+        <br>
+        <br>
+        <center><h1>Parts</h1></center>
+        <br>
+        <center><input type="text" id="myInputPart" placeholder="Search Table..."></center>
+        <br>
+        <table id="partTable" class="table">
+            <thead>
+                <tr>
+                    <th>Part Name</th>
+                    <th>Quantity</th>
+                    <th>Cost Price</th>
+                    <th>Selling Price</th>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for part in parts %}
+                <tr>
+                    <td>{{ part.name }}</td>
+                    <td>{{ part.quantity }}</td>
+                    <td>{{ part.cost_price }}</td>
+                    <td>{{ part.selling_price }}</td>
+                    <td>{{ part.date }}</td>
+                    <td>{{ part.description }}</td>
+                    <td>
+                        <center><a href="{{ url_for('edit_part', item_id=part.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover">Update</a>
+                        <form action="{{ url_for('delete_part', item_id=part.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover">Delete</button></center>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+        <br>
+        <center><a href="{{ url_for('partAddTo') }}" class="btn glow-on-hover"> Add Part </a></center>
+    </div>
+    <!-- Add Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInputPart").keyup(function () {
+                var searchTerm = $("#myInputPart").val().toLowerCase();
+                var listItem = $('#partTable tbody').children('tr');
+
+                $("#partTable tbody tr").each(function () {
+                    var row = $(this);
+                    var found = false;
+                    row.find('td').each(function () {
+                        var cellText = $(this).text().toLowerCase();
+                        if (cellText.indexOf(searchTerm) > -1) {
+                            found = true;
+                        }
+                    });
+
+                    if (found) {
+                        row.attr('visible', 'true').show();
+                    } else {
+                        row.attr('visible', 'false').hide();
+                    }
+                });
+
+                var itemCount = $('#partTable tbody tr[visible="true"]').length;
+
+                if (itemCount == '0') {
+                    // Show 'No results found' if you have a dedicated element for it
+                } else {
+                    // Hide 'No results found' if you have a dedicated element for it
+                }
+            });
+        });
+    </script>
+</body>
+</html>
