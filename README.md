@@ -28,29 +28,31 @@ python3 app.py
 
 After running the python scripts there will be a popup that shows that the website should be running at http://127.0.0.1:5000
 
-Click on this link to run on your local port
+Click on this link to run on your local port!
 
 ## Project Description:
 
 This is an inventory web application that allows small buisness owners to keep track of their orders, parts, and invoices. They can add items to their respective tables by providing details about them, like:
 
-*ORDERS
+#ORDERS TABLE
 * Name
 * Quantity
 * Cost Price
 * Selling Price
 * Date (optional)
 * Description (optional)
+  
 
-* PARTS
+#PARTS TABLE
 * Name
 * Quantity
 * Cost Price
 * Selling Price
 * Date (Optional)
 * Description ( optional)
+  
 
-* INVOICES
+#INVOICES TABLE
 * Invoice Number
 * Name
 * Order Number
