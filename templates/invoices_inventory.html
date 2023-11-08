@@ -4,115 +4,105 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders</title>
+    <title>Order</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Cardstyles.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
-        
+        html, body {
+             height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         body {
-            background-color: rgb(36, 36, 36);
+            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(46, 46, 46)); /*fiolet*/
             color: white;
             margin: 0;
             padding: 0;
         }
-        
     </style>
 </head>
 <body>
     <div class="title-bar">
         <div class="title-content">
             <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
-            
             <!-- Website title -->
             <h1 class="title-text">IMS Solutions</h1>
         </div>
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-r"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
     </div>
 
     <div class="container">
         <br>
         <br>
-        <center><h1>Invoices</h1></center>
+        <center><h1 style="color:black">Invoices</h1></center>
         <br>
-        <center><input type="text" id="myInputInvoice" placeholder="Search Table..."></center>
+        <center><input type="text" id="myInput" placeholder="Search Table..."></center>
         <br>
-        <table id="invoiceTable" class="table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Invoice Number</th>
-                    <th>OrderNumber</th>
-                    <th>Part Number</th>
-                    <th>Price Spent</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in items %}
-                <tr>
-                    <td>{{ item.inv_num }}</td>
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.order_num }}</td>
-                    <td>{{ item.part_name }}</td>
-                    <td>{{ item.price_spent }}</td>
-                    <td>{{ item.date }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>
-                        <center><a href="{{ url_for('edit_invoice', item_id=item.id) }}" style = "width: 90px; height: 30px;margin-top: 5px;margin-bottom:5px" class="btn glow-on-hover-g">Update</a>
-                        <form action="{{ url_for('delete_invoice', item_id=item.id) }}" method="POST" style="display:inline;">
-                            <button type= "submit" style= "width: 90px; height:30px;margin-top: 5px margin-bottom 5px;" class="btn glow-on-hover-g">Delete</button></center>
-                        </form>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody> 
-        </table>
+
+        {% for item in items %}
+        <div class="card mb-3">
+            <div class="card-body">
+               <center> <h5 style= 'color:black'class="card-title">{{ item.name }}</h5> </center>
+                <p class="card-text">
+                    
+                    <strong>Invoice #:</strong> {{ item.inv_num }}<br>
+                    <strong>Name:</strong> {{ item.name }}<br>
+                    <strong>Order #:</strong> {{ item.order_num }}<br>
+                    <strong>Part Name:</strong> {{ item.part_name }}<br>
+                    <strong>Price Spent:</strong> {{ item.price_spent }}<br>
+                    <strong>Date:</strong> {{ item.date }}<br>
+                    <strong>Description:</strong> {{ item.description }}<br>
+
+                </p>
+                <div class="btn-group" role="group" aria-label="Item Actions">
+                    <a href="{{ url_for('edit_invoice', item_id=item.id) }}" style ='margin-left: 10px; border: 1px solid black;border-radius: 10px; background: white;' class="btn glow-on-hover-r">Update</a>
+                    <form action="{{ url_for('delete_invoice', item_id=item.id) }}" method="POST">
+                        <button type="submit" style= 'border: 1px solid black;border-radius: 10px; background: white;'class="btn glow-on-hover-g">Delete</button>
+                    </form>
+                    <!--Replace edit_item with view_item when view_orders.html is added-->
+                    <a href="{{ url_for('edit_item', item_id=item.id) }}" style ='margin-left:10px; width:93%; border: 1px solid black;border-radius: 10px; background: white;' class="btn glow-on-hover-g">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
         <br>
-        <!--TODO THIS IS ONLY TEMPORARY LINKED TO PARTINV FOR TESTING-->
         <center><a href="{{ url_for('invoiceAddTo') }}" class="btn glow-on-hover-g"> Add Invoice </a></center>
     </div>
     <!-- Add Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
-            $("#myInputInvoice").keyup(function () {
-                var searchTerm = $("#myInputInvoice").val().toLowerCase();
-                var listItem = $('#myInputInvoice tbody').children('tr');
-
-                $("#invoiceTable tbody tr").each(function () {
-                    var row = $(this);
-                    var found = false;
-                    row.find('td').each(function () {
-                        var cellText = $(this).text().toLowerCase();
-                        if (cellText.indexOf(searchTerm) > -1) {
-                            found = true;
-                        }
-                    });
-
-                    if (found) {
-                        row.attr('visible', 'true').show();
+            $("#myInput").keyup(function () {
+                var searchTerm = $("#myInput").val().toLowerCase();
+    
+                $(".card").each(function () {
+                    var card = $(this);
+                    var cardText = card.find('.card-text').text().toLowerCase();
+                    var cardBody = card.find('.card-body').text().toLowerCase();
+                    if (cardText.includes(searchTerm) || cardBody.includes(searchTerm)) {
+                        card.show();
                     } else {
-                        row.attr('visible', 'false').hide();
+                        card.hide();
                     }
                 });
-
-                var itemCount = $('#invoiceTable tbody tr[visible="true"]').length;
-
-                if (itemCount == '0') {
-                    // Show 'No results found' if you have a dedicated element for it
+    
+                var visibleCardCount = $('.card:visible').length;
+    
+                if (visibleCardCount === 0) {
+                    // Show 'No results found' or handle as needed
                 } else {
-                    // Hide 'No results found' if you have a dedicated element for it
+                    // Hide 'No results found' or handle as needed
                 }
             });
         });
-    </script>
+    </script>    
 </body>
 </html>

@@ -24,9 +24,9 @@
         </div>
     </div>
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"  class="nav-button nav-link glow-on-hover-b"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover-r"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
     </div>
     <div class="container mt-5">
         <center><h1 class="mb-4">Update Parts</h1></center>
@@ -48,7 +48,7 @@
                 <input type="number" step="0.01" id="selling_price" name="selling_price" class="form-control" value="{{ item.selling_price }}" required>
             </div>
             <div class="form-group">
-                <label for="date">Date (Optional):</label>
+                <label for="date">Date:</label>
                 <input type="text" id="date" name="date" class="form-control" value="{% if item.date %}{{ item.date }}{% endif %}">
             </div>
             <div class="form-group">

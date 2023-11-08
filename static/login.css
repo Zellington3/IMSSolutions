@@ -41,10 +41,11 @@ label {
     transition: .5s ease-in-out;
 }
 
+
 input {
     width: 60%;
     height: 20px;
-    background: #333333;
+    background: #ffffff;
     justify-content: center;
     display: flex;
     margin: 20px auto;
@@ -85,6 +86,7 @@ button:hover {
 }
 
 .login label {
+    padding-top: 20px;
     color: #2e2d30;
     transform: scale(.6);
 }

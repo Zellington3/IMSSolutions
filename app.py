@@ -46,7 +46,7 @@ class InvItem(db.Model):
     inv_num = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(100), nullable=False)
     order_num = db.Column(db.Integer, nullable=False) #may be able to make this foreign key to item
-    part_name = db.Column(db.String(100), nullable=False)
+    part_name = db.Column(db.String(100), nullable=False) #may need to change this to part_num
     price_spent = db.Column(db.Float, nullable=False)
     date = db.Column(db.String(100), nullable=True)
     description = db.Column(db.String(200), nullable=True)
@@ -72,6 +72,11 @@ def update_item_ajax(item_id):
 @app.route('/ordersAddTo')
 def ordersAddTo():
     return render_template('orders_addTo.html')
+
+@app.route('/inventoryCards')
+def inventoryCards():
+    items = Item.query.all()
+    return render_template('orders_inventory_bsCard.html', items=items)
 
 @app.route('/inventory')
 def inventory():
@@ -120,6 +125,11 @@ def delete_item(item_id):
 
 #-------------------------------------------------------------------------------------------------------------------------------
 #UNDER THIS SECTION HAS TO DO WITH PARTS
+@app.route('/partInventoryCards')
+def partInventoryCards():
+    items = PartItem.query.all()
+    return render_template('parts_inventory_bsCard.html', parts=items)
+
 @app.route('/partAddTo')
 def partAddTo():
     return render_template('parts_addTo.html')
@@ -175,6 +185,11 @@ def edit_part(item_id):
 
 #--------------------------------------------------------------------------------
 #UNDER THIS SECTION HAS TO DO WITH INVOICES
+@app.route('/invoiceInventoryCards')
+def invoiceInventoryCards():
+    items = InvItem.query.all()
+    return render_template('invoice_inventory_bsCard.html', items=items)
+
 @app.route('/invoiceAddTo')
 def invoiceAddTo():
     return render_template('invoices_addTo.html')

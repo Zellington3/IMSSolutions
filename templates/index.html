@@ -28,13 +28,14 @@
 
 			<div class="login">
 				<form>
+					<!--Not currently checked-->
 					<label for="chk" style= 'color: white'aria-hidden="true">Login</label>
 					<input type="email" name="email" placeholder="Email" required="">
 					<input type="password" name="pswd" placeholder="Password" required="">
-					<button style='color:black'>Login</button>
+					<a href="{{ url_for('homepage') }}" class="btn">Login</a>
+					<!--<button style='color:black'>Login</button>-->
 				</form>
 			</div>
 	</div>
-	<a href="{{ url_for('homepage') }}" style="margin-left: 20px"class="btn">Home</a></center>
 </body>
 </html>
