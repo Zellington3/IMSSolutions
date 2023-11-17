@@ -1,28 +1,78 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+.card {
+    box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
+    outline-width: 3px;
+    margin: 10px;
+    width: calc(33.33% - 25px); 
+    display: inline-block;
+    border-radius: 10px;
+    height: auto;
+    border: 1px solid black;}
+
+.card-body {
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; }
+
+.card-text {
+    color: black;
+    font-size: 14px;
+    overflow: hidden; }
+
+.card:after {
+    content: "";
+    display: table;
+    clear: both;}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;}
+
+.btn {
+    width: 45%;
+    margin-top: 10px;
+    display: block;
+    background-color: black;
+    margin-right: 7px;
+    border: 1px solid black;}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;}
+
 .title-bar {
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-}
+    height: 50px;}
 
 .title-content {
     display: flex;
-    align-items: center;
-}
+    align-items: center;}
 
 .title-emblem {
     margin-right: 10px; 
     width: 50px; 
-    height: 50px; 
-}
+    height: 50px; }
 
 .title-text {
     font-size: 24px; 
-    color: black; 
-}
-
+    color: black; }
 
 .nav-bar {
     color: black;
@@ -30,33 +80,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 50px;
-}
+    height: 50px;}
 
 .nav-button {
     color: white;
     margin-right: 5px;
     padding: 10px 0px;
     flex-grow: 1; 
-    text-align: center;
-}
+    text-align: center;}
 
 .nav-link {
-    border-right: 1px solid white;
-}
+    border-right: 1px solid white;}
 
-/* Style for the table */
 #myTable {
     border-collapse: separate;
     border-spacing: 0;
-    border: 2px solid white;
-}
+    border: 2px solid white;}
 
 #myTable th, #myTable td {
     border: 1px solid white;
     padding: 8px;
-    text-align: left;
-}
+    text-align: left;}
 /*GLOW ON HOVER GREEN COLORS*/
 .glow-on-hover-g {
     font-family: Arial;
@@ -69,8 +113,7 @@
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 .glow-on-hover-g:before {
     content: '';
@@ -86,20 +129,15 @@
     animation: glowing 20s linear infinite;;
     opacity: 0;
     transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-}
-
+    border-radius: 10px;}
 
 .glow-on-hover-g:hover:before {
-    opacity: 1;
-}
+    opacity: 1;}
 .glow-on-hover-g:active {
-    color: #000000;
-}
+    color: #000000;}
 
 .glow-on-hover-g:active:after {
-    background: transparent;
-}
+    background: transparent;}
 
 .glow-on-hover-g:after {
     z-index: -1;
@@ -110,8 +148,7 @@
     background: #ffffff;
     left: 0;
     top: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 /*GLOW ON HOVER BLUE COLORS*/
 .glow-on-hover-b {
@@ -125,8 +162,7 @@
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 .glow-on-hover-b:before {
     content: '';
@@ -142,20 +178,16 @@
     animation: glowing 20s linear infinite;;
     opacity: 0;
     transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 
 .glow-on-hover-b:hover:before {
-    opacity: 1;
-}
+    opacity: 1;}
 .glow-on-hover-b:active {
-    color: #000000;
-}
+    color: #000000;}
 
 .glow-on-hover-b:active:after {
-    background: transparent;
-}
+    background: transparent;}
 
 .glow-on-hover-b:after {
     z-index: -1;
@@ -166,8 +198,7 @@
     background: #ffffff;
     left: 0;
     top: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 /*GLOW ON HOVER RED COLORS*/
 .glow-on-hover-r {
@@ -181,8 +212,7 @@
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 .glow-on-hover-r:before {
     content: '';
@@ -199,20 +229,16 @@
     opacity: 0;
     transition: opacity .3s ease-in-out;
     border-radius: 10px;
-    color:black;
-}
+    color:black;}
 
 .glow-on-hover-r:active {
-    color: white;
-}
+    color: white;}
 
 .glow-on-hover-r:active:after {
-    background: transparent;
-}
+    background: transparent;}
 
 .glow-on-hover-r:hover:before {
-    opacity: 1;
-}
+    opacity: 1;}
 
 .glow-on-hover-r:after {
     z-index: -1;
@@ -223,8 +249,7 @@
     background: #ffffff;
     left: 0;
     top: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 /* GLOW ON HOVER DEFAULT COLORS*/
 .glow-on-hover {
@@ -238,8 +263,7 @@
     cursor: pointer;
     position: relative;
     z-index: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 .glow-on-hover:before {
     content: '';
@@ -255,20 +279,16 @@
     animation: glowing 20s linear infinite;
     opacity: 0;
     transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 .glow-on-hover:active {
-    color: #000000;
-}
+    color: #000000;}
 
 .glow-on-hover:active:after {
-    background: transparent;
-}
+    background: transparent;}
 
 .glow-on-hover:hover:before {
-    opacity: 1;
-}
+    opacity: 1;}
 
 .glow-on-hover:after {
     z-index: -1;
@@ -279,14 +299,12 @@
     background: #ffffff;
     left: 0;
     top: 0;
-    border-radius: 10px;
-}
+    border-radius: 10px;}
 
 @keyframes glowing {
     0% { background-position: 0 0; }
     50% { background-position: 400% 0; }
-    100% { background-position: 0 0; }
-}
+    100% { background-position: 0 0; }}
 
 /* Style for the input element */
 #myInput {
@@ -295,43 +313,48 @@
     border-radius: 10px;
     width: 200px;
     height: 40px;
-    text-align: center;
-}
+    text-align: center;}
+
 #partTable {
     border-collapse: separate;
     border-spacing: 0;
-    border: 2px solid white;
-}
+    border: 2px solid white;}
 
 #partTable th, #partTable td {
     border: 1px solid white;
     padding: 8px;
-    text-align: left;
-}
+    text-align: left;}
+
 #myInputPart {
     font-size: 18px;
     color: #333;
     border-radius: 10px;
-    width: 200px; /* Adjust the width as needed */
-    height: 40px; /* Adjust the height as needed */
-    text-align: center;
-    }
-    #invoiceTable {
-        border-collapse: separate;
-        border-spacing: 0;
-        border: 2px solid white;
-    }
+    width: 200px; 
+    height: 40px; 
+    text-align: center;}
+
+#invoiceTable {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid white;}
     
-    #invoiceTable th, #invoiceTable td {
-        border: 1px solid white;
-        padding: 8px;
-        text-align: left;
-    }
-    #myInputInvoice {
-        font-size: 18px;
-        color: #333;
-        border-radius: 10px;
-        width: 200px; /* Adjust the width as needed */
-        height: 40px; /* Adjust the height as needed */
-        text-align: center;
-        }
+#invoiceTable th, #invoiceTable td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;}
+
+#myInputInvoice {
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
+    text-align: center;}
+
+#payment_method {
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;}

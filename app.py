@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///orders_inventory.db'
 app.config['SQLALCHEMY_BINDS'] = { 'db2': 'sqlite:///parts_inventory.db',
                                    'db3': 'sqlite:///invoice_inventory.db'}
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 #MODELS FOR DBS------------------------------------------------------------
@@ -39,7 +39,6 @@ class PartItem(db.Model):
     def __repr__(self):
         return f'<PartItem {self.name}>'
 
-#Invoice Model
 class InvItem(db.Model):
     __bind_key__ = 'db3'
     id = db.Column(db.Integer, primary_key=True)
@@ -62,12 +61,30 @@ class InvItem(db.Model):
 
     def __repr__(self):
         return f'<InvItem {self.name}>'
-
 #----------------------------------------------------
 #APPROUTES FOR ORDERS UNDER THIS SECTION
+@app.route('/update_ajax/<int:item_id>', methods=['POST'])
+def update_item_ajax(item_id):
+    item = Item.query.get(item_id)
+    data = request.json
+    field = data['field']
+    value = data['value']
+
+    if field == 'name':
+        item.name = value
+    elif field == 'quantity':
+        item.quantity = int(value)
+    elif field == 'cost_price':
+        item.cost_price
+
 @app.route('/ordersAddTo')
 def ordersAddTo():
     return render_template('orders_addTo.html')
+
+@app.route('/order_view/<int:item_id>')
+def order_view(item_id):
+    item = Item.query.get(item_id)
+    return render_template('orders_view.html', item=item)
 
 @app.route('/inventoryCards')
 def inventoryCards():
@@ -124,11 +141,16 @@ def delete_item(item_id):
 @app.route('/partInventoryCards')
 def partInventoryCards():
     items = PartItem.query.all()
-    return render_template('parts_inventory.html', parts=items)
+    return render_template('parts_inventory_bsCard.html', parts=items)
 
 @app.route('/partAddTo')
 def partAddTo():
     return render_template('parts_addTo.html')
+
+@app.route('/parts_view/<int:item_id>')
+def parts_view(item_id):
+    item = PartItem.query.get(item_id)
+    return render_template('parts_view.html', item=item)
 
 @app.route('/partInventoy')
 def partInventory():
@@ -181,6 +203,7 @@ def edit_part(item_id):
 
 #--------------------------------------------------------------------------------
 #UNDER THIS SECTION HAS TO DO WITH INVOICES
+
 def process_invoice_form(item, form_data):
     # Extract data from the form and assign it to the corresponding fields in the InvItem object
     item.inv_num = int(form_data['inv_num'])
@@ -238,9 +261,9 @@ def edit_invoice(item_id):
     item = InvItem.query.get(item_id)
     return render_template('invoices_update.html', item=item)
 
-
 #---------------------------------------------------------------
 #under this section is login and signup
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -248,6 +271,7 @@ def home():
 @app.route('/login')
 def login():
     return render_template('index.html')
+
 @app.route('/homepage')
 def homepage():
     return render_template('homepage.html')
