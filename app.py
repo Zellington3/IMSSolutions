@@ -7,7 +7,7 @@ app = Flask(__name__, static_url_path='/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///orders_inventory.db'
 app.config['SQLALCHEMY_BINDS'] = { 'db2': 'sqlite:///parts_inventory.db',
                                    'db3': 'sqlite:///invoice_inventory.db'}
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 
 #MODELS FOR DBS------------------------------------------------------------
@@ -45,30 +45,26 @@ class InvItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     inv_num = db.Column(db.Integer, nullable=False)
     name = db.Column(db.String(100), nullable=False)
-    order_num = db.Column(db.Integer, nullable=False) #may be able to make this foreign key to item
-    part_name = db.Column(db.String(100), nullable=False) #may need to change this to part_num
-    price_spent = db.Column(db.Float, nullable=False)
-    date = db.Column(db.String(100), nullable=True)
+    order_num = db.Column(db.Integer, nullable=False)  
+    year = db.Column(db.Integer, nullable=False)  
+    make = db.Column(db.String(50), nullable=False) 
+    model = db.Column(db.String(50), nullable=False) 
+    mileage = db.Column(db.Float, nullable=True) 
+    work_done = db.Column(db.String(200), nullable=False)  
+    part_numbers = db.Column(db.String(100), nullable=False) 
+    parts_used = db.Column(db.String(200), nullable=False)  
+    total_price = db.Column(db.Float, nullable=False)  
+    price_owed = db.Column(db.Float, nullable=False)  
+    payment_method = db.Column(db.String(50), nullable=False)  
+    time_worked_on = db.Column(db.String(50), nullable=True)  
     description = db.Column(db.String(200), nullable=True)
+    date = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
         return f'<InvItem {self.name}>'
+
 #----------------------------------------------------
 #APPROUTES FOR ORDERS UNDER THIS SECTION
-@app.route('/update_ajax/<int:item_id>', methods=['POST'])
-def update_item_ajax(item_id):
-    item = Item.query.get(item_id)
-    data = request.json
-    field = data['field']
-    value = data['value']
-
-    if field == 'name':
-        item.name = value
-    elif field == 'quantity':
-        item.quantity = int(value)
-    elif field == 'cost_price':
-        item.cost_price
-
 @app.route('/ordersAddTo')
 def ordersAddTo():
     return render_template('orders_addTo.html')
@@ -128,7 +124,7 @@ def delete_item(item_id):
 @app.route('/partInventoryCards')
 def partInventoryCards():
     items = PartItem.query.all()
-    return render_template('parts_inventory_bsCard.html', parts=items)
+    return render_template('parts_inventory.html', parts=items)
 
 @app.route('/partAddTo')
 def partAddTo():
@@ -185,35 +181,39 @@ def edit_part(item_id):
 
 #--------------------------------------------------------------------------------
 #UNDER THIS SECTION HAS TO DO WITH INVOICES
-@app.route('/invoiceInventoryCards')
-def invoiceInventoryCards():
-    items = InvItem.query.all()
-    return render_template('invoice_inventory_bsCard.html', items=items)
+def process_invoice_form(item, form_data):
+    # Extract data from the form and assign it to the corresponding fields in the InvItem object
+    item.inv_num = int(form_data['inv_num'])
+    item.name = str(form_data['name'])
+    item.order_num = int(form_data['order_num'])
+    item.part_numbers = str(form_data['part_numbers'])
+    item.year = int(form_data['year']) 
+    item.make = str(form_data['make']) 
+    item.model = str(form_data['model']) 
+    item.mileage = float(form_data['mileage']) if form_data['mileage'] else None 
+    item.work_done = str(form_data['work_done']) 
+    item.parts_used = str(form_data['parts_used']) 
+    item.total_price = float(form_data['total_price'])
+    item.price_owed = float(form_data['price_owed']) 
+    item.payment_method = str(form_data['payment_method'])   
+    item.time_worked_on = str(form_data['time_worked_on']) if form_data['time_worked_on'] else None 
+    item.description = str(form_data['description']) if form_data['description'] else None  
+    item.date = str(form_data['date']) 
 
-@app.route('/invoiceAddTo')
+@app.route ('/invoice_addTo')
 def invoiceAddTo():
     return render_template('invoices_addTo.html')
 
-@app.route('/invoiceInventoy')
+@app.route('/invoices')
 def invoiceInventory():
     items = InvItem.query.all()
     return render_template('invoices_inventory.html', items=items)
 
-@app.route('/invoiceUpdate')
-def invoiceUpdate():
-    return render_template('invoices_update.html')
-
-@app.route('/add_invoice', methods=['POST'])
+@app.route('/addInvoice', methods=['POST'])
 def add_invoice():
-    invItem = InvItem(
-        inv_num=int(request.form['inv_num']),
-        name=str(request.form['name']),
-        order_num=int(request.form['order_num']),
-        part_name=str(request.form['part_name']),
-        price_spent=float(request.form['price_spent']),
-        date=request.form['date'],
-        description=request.form['description']
-    )
+    form_data = request.form.to_dict()
+    invItem = InvItem()
+    process_invoice_form(invItem, form_data)
     db.session.add(invItem)
     db.session.commit()
     return redirect(url_for('invoiceInventory'))
@@ -228,13 +228,8 @@ def delete_invoice(item_id):
 @app.route('/update_invoice/<int:item_id>', methods=['POST'])
 def update_invoice(item_id):
     item = InvItem.query.get(item_id)
-    item.inv_num = int(request.form['inv_num'])
-    item.name = str(request.form['name'])
-    item.order_num = int(request.form['order_num'])
-    item.part_name = str(request.form['part_name'])
-    item.price_spent = float(request.form['price_spent'])
-    item.date = request.form['date']
-    item.description = request.form['description']
+    form_data = request.form.to_dict()
+    process_invoice_form(item, form_data)
     db.session.commit()
     return redirect(url_for('invoiceInventory'))
 
@@ -242,6 +237,7 @@ def update_invoice(item_id):
 def edit_invoice(item_id):
     item = InvItem.query.get(item_id)
     return render_template('invoices_update.html', item=item)
+
 
 #---------------------------------------------------------------
 #under this section is login and signup
