@@ -7,7 +7,6 @@
     <title>Order</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Cardstyles.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
         html, body {
@@ -64,8 +63,6 @@
                     <form action="{{ url_for('delete_part', item_id=part.id) }}" method="POST">
                         <button type="submit" style= 'border: 1px solid black;border-radius: 10px; background: white;'class="btn glow-on-hover-b">Delete</button>
                     </form>
-                    <!--Replace with View Part when added-->
-                    <a href="{{ url_for('edit_part', item_id=part.id) }}" style ='margin-left:10px; width:93%; border: 1px solid black;border-radius: 10px; background: white;' class="btn glow-on-hover-b">View</a>
                 </div>
             </div>
         </div>

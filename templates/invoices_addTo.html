@@ -3,36 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> Add Order </title>
+    <title> Add Invoice </title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossorigin="anonymous">
-          <style>
-            body{
-                background-color: rgb(36, 36, 36);
-                color: white;
-            }
-
-            </style>
+    <style>
+        body {
+            background-color: rgb(36, 36, 36);
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <div class="title-bar">
         <div class="title-content">
             <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
-            
-            <!-- Website title -->
             <h1 class="title-text">IMS Solutions</h1>
         </div>
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}"  style="text-decoration: none;"class="nav-button nav-link glow-on-hover-r"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}"   style="text-decoration: none;"class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
+        <a href="{{ url_for('inventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-r"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
     </div>
     <div class="container mt-5">
-        <center><h1 class="mb-4">Add Invoices</h1></center>
+        <center><h1 class="mb-4">Add Invoice</h1></center>
         <form action="{{ url_for('add_invoice') }}" method="POST">
             <div class="form-group">
                 <label for="inv_num">Invoice #:</label>
@@ -43,30 +40,73 @@
                 <input type="text" id="name" name="name" class="form-control" required>
             </div>
             <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="number" id="year" name="year" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="make">Brand:</label>
+                <input type="text" id="make" name="make" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="mileage">Mileage:</label>
+                <input type="number" id="mileage" name="mileage" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="part_numbers">Part Numbers:</label>
+                <input type="text" id="part_numbers" name="part_numbers" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="parts_used">Parts Used:</label>
+                <input type="text" id="parts_used" name="parts_used" class="form-control">
+            </div>
+            <div class="form-group">
                 <label for="order_num">Order #:</label>
-                <input type="number" step="0.01" id="order_num" name="order_num" class="form-control" required>
+                <input type="number" id="order_num" name="order_num" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="part_name">Part Name:</label>
-                <input type="text" step="0.01" id="part_name" name="part_name" class="form-control" required>
+                <label for="work_done">Work Done:</label>
+                <input type="text" id="work_done" name="work_done" class="form-control">
             </div>
             <div class="form-group">
-                <label for="price_spent">Price Spent:</label>
-                <input type="price_spent" step="0.01" id="price_spent" name="price_spent" class="form-control" required>
+                <label for="time_worked_on">Time Worked On:</label>
+                <input type="text" id="time_worked_on" name="time_worked_on" class="form-control">
             </div>
             <div class="form-group">
-                <label for="date">Date (Optional):</label>
-                <input type="text" id="date" name="date" class="form-control">
+                <label for="total_price">Total Price:</label>
+                <input type="number" step="0.01" id="total_price" name="total_price" class="form-control">
             </div>
+            <div class="form-group">
+                <label for="price_owed">Price Owed:</label>
+                <input type="number" step="0.01" id="price_owed" name="price_owed" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="payment_method">Payment Method:</label>
+                <select name="payment_method" id="payment_method" class="form-control">
+                    <option value="none">None</option>
+                    <option value="cash">Cash</option>
+                    <option value="credit">Credit</option>
+                    <option value="debit">Debit</option>
+                    <option value="check">Check</option>
+                </select>
+            </div>            
             <div class="form-group">
                 <label for="description">Description (Optional):</label>
                 <input type="text" id="description" name="description" class="form-control">
             </div>
-            <center><button type="submit" style="margin-right: 20px" class="btn glow-on-hover">Add Invoice</button>
-            <a href="{{ url_for('invoiceInventory') }}" style="margin-left: 20px"class="btn glow-on-hover-g">View Invoices</a></center>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" class="form-control">
+            </div>            
+            <center>
+                <button type="submit" style="margin-right: 20px;" class="btn glow-on-hover-g">Add Invoice</button>
+                <a href="{{ url_for('invoiceInventory') }}" style="margin-left: 20px;" class="btn glow-on-hover-g">View Invoices</a>
+            </center>
         </form>
         <br>
-        
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -75,5 +115,9 @@
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
             crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIE
-   
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEfaG9H30"
+            crossorigin="anonymous"></script>
+</body>
+</html>
+
+
