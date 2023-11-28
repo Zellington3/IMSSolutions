@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Cardstyles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(46, 46, 46));
+            color: white;
+            margin: 0;
+            padding: 0;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Title Bar -->
+<div class="title-bar">
+    <div class="title-content">
+        <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
+        <!-- Website title -->
+        <h1 class="title-text">IMS Solutions</h1>
+    </div>
+</div>
+
+<!-- Navigation Bar -->
+<div class="nav-bar">
+    <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
+    <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
+    <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+</div>
+
+<!-- Main Content -->
+<main>
+    <!-- Analytics Section -->
+    <section id="analytics">
+        <h2>Analytics</h2>
+        <!-- Add your analytics charts, graphs, or data here -->
+    </section>
+
+    <!-- Unpaid Invoices Section -->
+    <section id="unpaidInvoices">
+        <h2>Unpaid Invoices</h2>
+        <!-- Add a table or list to display unpaid invoices -->
+        <!-- ... your code ... -->
+    </section>
+
+    <!-- Parts Waiting Section -->
+    <section id="partsWaiting">
+        <h2>Parts Waiting</h2>
+        <!-- Add a table or list to display parts waiting -->
+        <!-- ... your code ... -->
+    </section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <!-- Add footer content, copyright information, etc. here -->
+</footer>
+
+<!-- Add your JavaScript scripts and other dependencies here -->
+
+</body>
+</html>
+
