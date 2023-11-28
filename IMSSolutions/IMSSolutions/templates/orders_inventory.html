@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Order Inventory </title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        html, body {
+             height: 100%;
+            margin: 0;
+            padding: 0; }
+        body {
+            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(46, 46, 46));
+            color: white;
+            margin: 0;
+            padding: 0; 
+            background-attachment: fixed;}
+
+    </style>
+</head>
+<body>
+    <div style="background-color: white;" class="title-bar">
+        <div class="title-content">
+            <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
+            <!-- Website title -->
+            <h1 class="title-text">IMS Solutions</h1>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="nav-bar">
+        <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+    </div>
+
+    <div class="container">
+        <br>
+        <br>
+        <center><h1 style="color:black">Work Orders</h1></center>
+        <br>
+        <center><input type="text" id="myInput" placeholder="Search Orders..."></center>
+        <br>
+        <center><a style="width:200px; left:4px; color: #333; border-radius: 10px; border: 1px solid black" href="{{ url_for('ordersAddTo') }}" class="btn glow-on-hover"> Add Order </a></center>
+        <br>
+
+    {% for item in items %}
+    <div class="card mb-3">
+        <img class="status-icon" src="{{ url_for('static', filename=status_color(item.status)) }}" alt="Status Icon">
+        <div class="card-body"> 
+                <center><h5 style='color:black' class="card-title">{{ item.order_number }}</h5></center>
+        <p class="card-text">
+                <strong>Year:</strong> {{ item.year }}<br>
+                <strong>Make:</strong> {{ item.make }}<br>
+                <strong>Model:</strong> {{ item.model }}<br>
+                <strong>Mileage:</strong> {{ item.mileage }}<br>
+                <strong>Work Needed:</strong> {{ item.work_needed }}<br>
+                <strong>Parts:</strong> {{ item.parts }}<br>
+                <strong>Total:</strong> {{ item.total }}<br>
+                <strong>Invoice Number:</strong> {{ item.inv_num }}<br>
+                <strong>Date:</strong> {{ item.date }}<br>
+                <strong>Description:</strong> {{ item.description }}
+            </p>
+         <div class="btn-group" role="group" aria-label="Item Actions">
+            <a href="{{ url_for('edit_order', item_id=item.id) }}" style='margin-left: 10px; border: 1px solid black; border-radius: 10px; background: white;' class="btn glow-on-hover">Update</a>
+            <form action="{{ url_for('delete_order', item_id=item.id) }}" method="POST">
+                <button type="submit" style='border: 1px solid black; border-radius: 10px; background: white;' class="btn glow-on-hover">Delete</button>
+            </form>            
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#myInput").keyup(function () {
+                var searchTerm = $("#myInput").val().toLowerCase();
+    
+                $(".card").each(function () {
+                    var card = $(this);
+                    var cardText = card.find('.card-text').text().toLowerCase();
+                    var cardBody = card.find('.card-body').text().toLowerCase();
+                    if (cardText.includes(searchTerm) || cardBody.includes(searchTerm)) {
+                        card.show();
+                    } else {
+                        card.hide();
+                    }
+                });
+    
+                var visibleCardCount = $('.card:visible').length;
+    
+                if (visibleCardCount === 0) {
+                    // Show 'No results found' or handle as needed
+                } else {
+                    // Hide 'No results found' or handle as needed
+                }
+            });
+        });
+    </script>    
+</body>
+</html>

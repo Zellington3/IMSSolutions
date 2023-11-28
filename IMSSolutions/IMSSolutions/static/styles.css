@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+.card {
+    box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
+    outline-width: 3px;
+    margin: 10px;
+    width: calc(33.33% - 25px); 
+    display: inline-block;
+    border-radius: 10px;
+    height: auto;
+    border: 1px solid black;}
+    
+.card.mb-3 {
+        background-color:white;}
+.card-body {
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; }
+
+.card-text {
+    color: black;
+    font-size: 14px;
+    overflow: hidden; }
+
+.card:after {
+    content: "";
+    display: table;
+    clear: both;}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;}
+
+.btn {
+    width: 45%;
+    margin-top: 10px;
+    display: block;
+    background-color: rgb(255, 255, 255);
+    margin-right: 7px;
+    border: 1px solid black;}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;}
+
+.title-bar {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;}
+
+.title-content {
+    display: flex;
+    align-items: center;}
+
+.title-emblem {
+    margin-right: 10px; 
+    width: 50px; 
+    height: 50px; }
+
+.title-text {
+    font-size: 24px; 
+    color: black; }
+
+.nav-bar {
+    color: black;
+    background-color: #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;}
+
+.nav-button {
+    color: white;
+    margin-right: 5px;
+    padding: 10px 0px;
+    flex-grow: 1; 
+    text-align: center;}
+
+.nav-link {
+    border-right: 1px solid white;}
+
+#myTable {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid white;}
+
+#myTable th, #myTable td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;}
+/* GLOW ON HOVER DEFAULT COLORS*/
+.glow-on-hover {
+    font-family: Arial;
+    width: 150px;
+    height: 40px;
+    border: 1px, solid black;
+    outline: none;
+    color: #000000;
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;}
+
+/* Style for the input element */
+#myInput {
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
+    text-align: center;}
+
+#partTable {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid white;}
+
+#partTable th, #partTable td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;}
+
+#myInputPart {
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    width: 200px; 
+    height: 40px; 
+    text-align: center;}
+
+#invoiceTable {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 2px solid white;}
+    
+#invoiceTable th, #invoiceTable td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;}
+
+#myInputInvoice {
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
+    text-align: center;}
+
+#payment_method {
+    font-size: 18px;
+    color: #333;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;}

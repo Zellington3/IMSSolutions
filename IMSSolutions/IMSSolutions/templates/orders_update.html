@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Update Order</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous">
+    <style>
+        body {
+            background-color: rgb(36, 36, 36);
+            color: white;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpH"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="title-bar">
+        <div class="title-content">
+            <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
+            
+            <!-- Website title -->
+            <h1 class="title-text">IMS Solutions</h1>
+        </div>
+    </div>
+    <!-- Navigation bar -->
+    <div class="nav-bar">
+        <a href="{{ url_for('orderInventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}"  style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+    </div>
+    <div class="container mt-5">
+        <center><h1 class="mb-4">Update Orders</h1></center>
+        <form action="{{ url_for('update_order', item_id=item.id) }}" method="POST">
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <select name="status" id="status" class="form-control">
+                    {% for option in ['Waiting', 'In Progress', 'Done', 'Problem'] %}
+                        <option value="{{ option }}" {% if option == item.status %}selected{% endif %}>{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>                          
+            <div class="form-group">
+                <label for="order_number">Order Number:</label>
+                <input type="text" id="order_number" name="order_number" class="form-control" value="{{ item.order_number }}" required>
+            </div>
+            <div class="form-group">
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year" class="form-control" value="{{ item.year }}" required>
+            </div>
+            <div class="form-group">
+                <label for="make">Make:</label>
+                <input type="text" id="make" name="make" class="form-control" value="{{ item.make }}" required>
+            </div>
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model" class="form-control" value="{{ item.model }}" required>
+            </div>
+            <div class="form-group">
+                <label for="mileage">Mileage:</label>
+                <input type="number" id="mileage" name="mileage" class="form-control" value="{{ item.mileage }}" required>
+            </div>
+            <div class="form-group">
+                <label for="work_needed">Work Needed:</label>
+                <input type="text" id="work_needed" name="work_needed" class="form-control" value="{{ item.work_needed }}">
+            </div>
+            <div class="form-group">
+                <label for="parts">Parts:</label>
+                <input type="text" id="parts" name="parts" class="form-control" value="{{ item.parts }}">
+            </div>
+            <div class="form-group">
+                <label for="total">Total:</label>
+                <input type="number" step="0.01" id="total" name="total" class="form-control" value="{{ item.total }}">
+            </div>
+            <div class="form-group">
+                <label for="inv_num">Invoice Number:</label>
+                <input type="number" id="inv_num" name="inv_num" class="form-control" value="{{ item.inv_num }}">
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" class="form-control" value="{% if item.date %}{{ item.date }}{% endif %}">
+            </div>
+            <div class="form-group">
+                <label for="description">Description (Optional):</label>
+                <input type="text" id="description" name="description" class="form-control" value="{% if item.description %}{{ item.description }}{% endif %}">
+            </div>
+            <center>
+                <button type="submit" style="background-color:white; left:30px; margin-right: 20px" class="btn glow-on-hover">Update Order</button>
+                <a href="{{ url_for('orderInventory') }}" style=" background-color:white; left:30px; margin-right: 20px" class="btn glow-on-hover">Back to Orders</a>
+            </center>
+        </form>
+        <br>
+    </div>
+</body>
+</html>
