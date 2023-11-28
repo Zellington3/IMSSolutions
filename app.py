@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
 from jinja2 import Template
 from datetime import datetime, timedelta
+from collections import defaultdict
 
 app = Flask(__name__, static_url_path='/static')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///orders_inventory.db'
@@ -24,7 +25,70 @@ def status_color(status):
         return 'Status_Waiting.png'
     else:
         return 'Status_Problem.png'
+    
+#Weird bug where this was giving negative values so where it says time difference < seven_days in the function but its actually checking to see if its greater than 7 days apart. 
+@app.route('/status_invoice/<float:total_price>/<float:price_paid>/<string:date>')
+def status_invoice(total_price, price_paid, date_str):
+    invoice_date = datetime.strptime(date_str, "%Y-%m-%d")
+    current_time = datetime.now()
+    time_difference = current_time - invoice_date
+    balance = total_price - price_paid
 
+    seven_days = -timedelta(days=7)
+    print("Current Time:", current_time)
+    print("Invoice Date:", invoice_date)
+    print("Time Difference:", time_difference)
+    print(seven_days)
+    if balance > 0 and time_difference < seven_days:
+        return 'Status_Problem.png'
+    elif balance > 0:
+        return 'Status_InProgress.png'
+    else:
+        return 'Status_Done.png'
+##For Total Sales Chart    
+def calculate_total_sales_per_day(items):
+    total_sales_per_day = defaultdict(float)
+
+    for item in items:
+        date = item.date
+        total_sales_per_day[date] += item.total_price
+
+    return total_sales_per_day
+
+def calculate_total_sales_per_month(items):
+    total_sales_per_month = defaultdict(float)
+
+    for item in items:
+        year_month = item.date[:7]
+        total_sales_per_month[year_month] += item.total_price
+
+    return total_sales_per_month
+
+@app.route('/parts_profit_data')
+def parts_profit_data():
+    parts = PartItem.query.all()
+    profit_data = [{'name': part.name, 'profit': part.selling_price - part.cost_price} for part in parts]
+    return jsonify(profit_data)
+
+##For Order Status Pie Chart
+@app.route('/order_status_data')
+def order_status_data():
+    # Query the database to get the count of orders for each status
+    done_count = Item.query.filter_by(status='Done').count()
+    in_progress_count = Item.query.filter_by(status='In Progress').count()
+    waiting_count = Item.query.filter_by(status='Waiting').count()
+    problem_count = Item.query.filter(Item.status.notin_(['Done', 'In Progress', 'Waiting'])).count()
+
+    # Create a dictionary with the status counts
+    order_status_data = {
+        'Done': done_count,
+        'In Progress': in_progress_count,
+        'Waiting': waiting_count,
+        'Problem': problem_count
+    }
+
+    # Return the data as JSON
+    return order_status_data
 #MODELS FOR DBS------------------------------------------------------------
 #ORDER MODEL
 class Item(db.Model):
@@ -76,7 +140,7 @@ class InvItem(db.Model):
     part_numbers = db.Column(db.String(100), nullable=False) 
     parts_used = db.Column(db.String(200), nullable=False)  
     total_price = db.Column(db.Float, nullable=False)  
-    price_owed = db.Column(db.Float, nullable=False)  
+    price_paid = db.Column(db.Float, nullable=False)  
     payment_method = db.Column(db.String(50), nullable=False)  
     time_worked_on = db.Column(db.String(50), nullable=True)
     date = db.Column(db.String(50), nullable=False)  
@@ -220,7 +284,7 @@ def process_invoice_form(item, form_data):
     item.work_done = str(form_data['work_done']) 
     item.parts_used = str(form_data['parts_used']) 
     item.total_price = float(form_data['total_price'])
-    item.price_owed = float(form_data['price_owed']) 
+    item.price_paid = float(form_data['price_paid']) 
     item.payment_method = str(form_data['payment_method'])   
     item.time_worked_on = str(form_data['time_worked_on']) if form_data['time_worked_on'] else None 
     item.description = str(form_data['description']) if form_data['description'] else None  
@@ -228,12 +292,12 @@ def process_invoice_form(item, form_data):
 
 @app.route ('/invoice_addTo')
 def invoiceAddTo():
-    return render_template('invoices_addTo.html')
+    return render_template('invoices_addTo.html', status_invoice=status_invoice)
 
 @app.route('/invoiceInventory')
 def invoiceInventory():
     items = InvItem.query.all()
-    return render_template('invoices_inventory.html', items=items)
+    return render_template('invoices_inventory.html', items=items, status_invoice=status_invoice)
 
 @app.route('/addInvoice', methods=['POST'])
 def add_invoice():
@@ -282,7 +346,17 @@ def homepage():
 #LOGIN AND SIGNUP--------------------------------------------------------
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    return render_template('admin_dashboard.html')
+    InvItems = InvItem.query.all()
+    
+    # Calculate total sales per day
+    total_sales_per_day = calculate_total_sales_per_day(InvItems)
+    total_sales_per_month = calculate_total_sales_per_month(InvItems)
+    # Assuming order_status_data is a function that returns a dictionary
+    order_status_data_result = order_status_data()
+
+    return render_template('admin_dashboard.html', total_sales_per_day=jsonify(total_sales_per_day).json, total_sales_per_month=jsonify(total_sales_per_month).json, order_status_data=order_status_data_result)
+
+
 
 @app.route('/login_route', methods=['POST'])
 def login_route():

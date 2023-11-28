@@ -24,9 +24,10 @@
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+        <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Invoices</b></a>
+        <a href="{{ url_for('homepage') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Home</b></a>
     </div>
     <div class="container mt-5">
         <center><h1 class="mb-4">Add Invoice</h1></center>
@@ -80,8 +81,8 @@
                 <input type="number" step="0.01" id="total_price" name="total_price" class="form-control">
             </div>
             <div class="form-group">
-                <label for="price_owed">Price Owed:</label>
-                <input type="number" step="0.01" id="price_owed" name="price_owed" class="form-control">
+                <label for="price_paid">Price Paid:</label>
+                <input type="number" step="0.01" id="price_paid" name="price_paid" class="form-control">
             </div>
             <div class="form-group">
                 <label for="payment_method">Payment Method:</label>

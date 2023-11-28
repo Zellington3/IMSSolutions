@@ -13,20 +13,156 @@
         html, body {
             height: 100%;
             margin: 0;
-            padding: 0;
-        }
+            padding: 0;}
 
         body {
-            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(46, 46, 46));
-            color: white;
+            background: white;
+            color: rgb(0, 0, 0);
             margin: 0;
             padding: 0;
-            background-attachment: fixed;
-        }
+            background-attachment: fixed;}
+
+        hr {
+            border-color: black; 
+            margin: 20px 0; }
+</style>
     </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawOrderStatusChart);
+    
+        function drawOrderStatusChart() {
+            var orderStatusData = JSON.parse('{{ order_status_data|tojson|safe }}');
+    
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Status');
+            data.addColumn('number', 'Count');
+    
+            // Populate data from Python dictionary
+            for (var status in orderStatusData) {
+                data.addRow([status, orderStatusData[status]]);
+            }
+    
+            var options = {
+                title: 'Order Status',
+                pieHole: 0.4, // Set to 0 for a complete pie chart
+                slices: {
+                    0: {color: 'green'}, // 'Done'
+                    1: {color: 'yellow'},  // 'In Progress'
+                    2: {color: 'red'}, // 'Problem'
+                    3: {color: 'orange'}   // 'Waiting'
+                },
+            };
+    
+            var chart = new google.visualization.PieChart(document.getElementById('order-status-chart'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+    
+        function drawChart() {
+            var totalSalesPerDay = JSON.parse('{{ total_sales_per_day|tojson|safe }}');
+    
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Date');
+            data.addColumn('number', 'Total Sales');
+    
+            // Populate data from Python dictionary
+            for (var date in totalSalesPerDay) {
+                data.addRow([date, totalSalesPerDay[date]]);
+            }
+    
+            var options = {
+                title: 'Total Sales Per Day',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    format: 'currency', 
+                    title: 'Total Daily Sales',
+                },
+            };
+    
+            var chart = new google.visualization.LineChart(document.getElementById('total-sales-chart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+    
+        function drawChart() {
+            var totalSalesPerMonth = JSON.parse('{{ total_sales_per_month|tojson|safe }}');
+    
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Month');
+            data.addColumn('number', 'Total Sales');
+    
+            // Populate data from Python dictionary
+            for (var month in totalSalesPerMonth) {
+                data.addRow([month, totalSalesPerMonth[month]]);
+            }
+    
+            var options = {
+                title: 'Total Sales Per Month',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                vAxis: {
+                    format: 'currency',
+                    title: 'Total Monthly Sales',
+                },
+            };
+    
+            var chart = new google.visualization.LineChart(document.getElementById('total-sales-chart-month'));
+            chart.draw(data, options);
+        }
+    </script>
+    
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawPartsProfitChart);
+    
+        function drawPartsProfitChart() {
+            // Fetch parts profit data from the server
+            $.ajax({
+                url: '/parts_profit_data',
+                dataType: 'json',
+                success: function (data) {
+                    var partsData = new google.visualization.DataTable();
+                    partsData.addColumn('string', 'Part Name');
+                    partsData.addColumn('number', 'Profit');
+    
+                    // Populate data from the fetched JSON
+                    data.forEach(function (part) {
+                        partsData.addRow([part.name, parseFloat(part.profit.toFixed(2))]);
+                    });
+    
+                    var options = {
+                        title: 'Profit per Part',
+                        legend: { position: 'bottom' },
+                        hAxis: {
+                            textStyle: {
+                                fontSize: 10 // Adjust font size for better visibility
+                            }
+                        },
+                        vAxis: {
+                            title: 'Profit',
+                            format: 'currency'
+                        }
+                    };
+    
+                    var chart = new google.visualization.ColumnChart(document.getElementById('parts-profit-chart'));
+                    chart.draw(partsData, options);
+                }
+            });
+        }
+    </script>
+    
 </head>
 <body>
-
 <!-- Title Bar -->
 <div class="title-bar">
     <div class="title-content">
@@ -38,40 +174,34 @@
 
 <!-- Navigation Bar -->
 <div class="nav-bar">
-    <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-    <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-    <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+    <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Orders</b></a>
+    <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Parts</b></a>
+    <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Invoices</b></a>
+    <a href="{{ url_for('homepage') }}" style="text-decoration: none;" class="nav-button"><b>Home</b></a>
 </div>
 
 <!-- Main Content -->
 <main>
+    <br>
+    <center><h1 style="color:black">Admin Dashboard</h1></center>
     <!-- Analytics Section -->
     <section id="analytics">
-        <h2>Analytics</h2>
-        <!-- Add your analytics charts, graphs, or data here -->
+        <hr>
+        <div id="total-sales-chart" style="width: 100%; height: 300px;"></div>
+        <br>
+        <hr>
+        <br>
+        <div id="total-sales-chart-month" style="width: 100%; height: 300px;"></div>
+        <br>
+        <hr>
+        <div style="display: flex;">
+            <div id="order-status-chart" style="width: 40%; height: 300px;"></div>
+            <div id="parts-profit-chart" style="width: 70%; height: 300px;"></div>
+        </div>
+        <hr>
+        
     </section>
 
-    <!-- Unpaid Invoices Section -->
-    <section id="unpaidInvoices">
-        <h2>Unpaid Invoices</h2>
-        <!-- Add a table or list to display unpaid invoices -->
-        <!-- ... your code ... -->
-    </section>
-
-    <!-- Parts Waiting Section -->
-    <section id="partsWaiting">
-        <h2>Parts Waiting</h2>
-        <!-- Add a table or list to display parts waiting -->
-        <!-- ... your code ... -->
-    </section>
 </main>
-
-<!-- Footer -->
-<footer>
-    <!-- Add footer content, copyright information, etc. here -->
-</footer>
-
-<!-- Add your JavaScript scripts and other dependencies here -->
-
 </body>
 </html>

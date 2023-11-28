@@ -35,9 +35,10 @@
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
+        <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Invoices</b></a>
+        <a href="{{ url_for('homepage') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Home</b></a>
     </div>
 
     <div class="container">
@@ -51,6 +52,7 @@
         <br>
         {% for item in items %}
         <div class="card mb-3">
+            <img class="status-icon" src="{{ url_for('static', filename=status_invoice(item.total_price, item.price_paid, item.date)) }}" alt="Status Icon">
             <div class="card-body">
                <center> <h5 style= 'color:black'class="card-title">{{ item.name }}</h5> </center>
                 <p class="card-text">
@@ -66,7 +68,7 @@
                     <strong>Work Done:</strong> {{ item.work_done }}<br>
                     <strong>Time Worked On:</strong> {{ item.time_worked_on }}<br>
                     <strong>Total Price:</strong> {{ item.total_price }}<br>
-                    <strong>Price Owed:</strong> {{ item.price_owed }}<br>
+                    <strong>Price Paid:</strong> {{ item.price_paid }}<br>
                     <strong>Payment Method:</strong> {{ item.payment_method }}<br>
                     <strong>Description:</strong> {{ item.description }}<br>
                     <strong>Date:</strong> {{ item.date }}<br>
