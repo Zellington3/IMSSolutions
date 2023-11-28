@@ -6,21 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='Cardstyles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
+
         html, body {
-             height: 100%;
+            height: 100%;
             margin: 0;
-            padding: 0;
-        }
+            padding: 0;}
+
         body {
-            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(46, 46, 46)); /*fiolet*/
+            background: linear-gradient(to bottom, rgb(255, 255, 255), rgb(46, 46, 46));
             color: white;
             margin: 0;
             padding: 0;
-        }
+            background-attachment: fixed;}
+
     </style>
 </head>
 <body>
@@ -33,9 +35,9 @@
     </div>
     <!-- Navigation bar -->
     <div class="nav-bar">
-        <a href="{{ url_for('inventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-r"><b>Orders</b></a>
-        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-b"><b>Parts</b></a>
-        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover-g"><b>Invoices</b></a>
+        <a href="{{ url_for('orderInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Orders</b></a>
+        <a href="{{ url_for('partInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Parts</b></a>
+        <a href="{{ url_for('invoiceInventory') }}" style="text-decoration: none;" class="nav-button nav-link glow-on-hover"><b>Invoices</b></a>
     </div>
 
     <div class="container">
@@ -43,47 +45,45 @@
         <br>
         <center><h1 style="color:black">Invoices</h1></center>
         <br>
-        <center><input type="text" id="myInput" placeholder="Search Table..."></center>
+        <center><input type="text" id="myInput" placeholder="Search Invoices..."></center>
         <br>
-
+        <center><a style="left:4px; width:200px; border-radius: 10px; border: 1px solid black" href="{{ url_for('invoiceAddTo') }}" class="btn glow-on-hover"> Add Invoice </a></center>
+        <br>
         {% for item in items %}
         <div class="card mb-3">
             <div class="card-body">
                <center> <h5 style= 'color:black'class="card-title">{{ item.name }}</h5> </center>
                 <p class="card-text">
-                    
                     <strong>Invoice #:</strong> {{ item.inv_num }}<br>
                     <strong>Name:</strong> {{ item.name }}<br>
-                    <strong>Order #:</strong> {{ item.order_num }}<br>
-                    <strong>Part Numbers:</strong> {{ item.part_numbers }}<br>
                         <strong>Year:</strong> {{ item.year }}
                         <strong>Make:</strong> {{ item.make }}
                         <strong>Model:</strong> {{ item.model }} <br>
-                    <strong>Parts Names:</strong> {{ item.parts_used }}<br>
                     <strong>Mileage:</strong> {{ item.mileage }}<br>
+                    <strong>Part Numbers:</strong> {{ item.part_numbers }}<br>
+                    <strong>Parts Names:</strong> {{ item.parts_used }}<br>
+                    <strong>Order #:</strong> {{ item.order_num }}<br>
                     <strong>Work Done:</strong> {{ item.work_done }}<br>
+                    <strong>Time Worked On:</strong> {{ item.time_worked_on }}<br>
                     <strong>Total Price:</strong> {{ item.total_price }}<br>
                     <strong>Price Owed:</strong> {{ item.price_owed }}<br>
                     <strong>Payment Method:</strong> {{ item.payment_method }}<br>
-                    <strong>Time Worked On:</strong> {{ item.time_worked_on }}<br>
                     <strong>Description:</strong> {{ item.description }}<br>
                     <strong>Date:</strong> {{ item.date }}<br>
-
                 </p>
                 <div class="btn-group" role="group" aria-label="Item Actions">
-                    <a href="{{ url_for('edit_invoice', item_id=item.id) }}" style ='margin-left: 10px; border: 1px solid black;border-radius: 10px; background: white;' class="btn glow-on-hover-r">Update</a>
+                    <a href="{{ url_for('edit_invoice', item_id=item.id) }}" style ='margin-left: 10px; border: 1px solid black;border-radius: 10px; background: white;' class="btn glow-on-hover">Update</a>
                     <form action="{{ url_for('delete_invoice', item_id=item.id) }}" method="POST">
-                        <button type="submit" style= 'border: 1px solid black;border-radius: 10px; background: white;'class="btn glow-on-hover-g">Delete</button>
+                        <button type="submit" style= 'border: 1px solid black;border-radius: 10px; background: white;'class="btn glow-on-hover">Delete</button>
                     </form>
-                    <!--Replace edit_item with view_item when view_orders.html is added-->
-                    <a href="{{ url_for('edit_item', item_id=item.id) }}" style ='margin-left:10px; width:93%; border: 1px solid black;border-radius: 10px; background: white;' class="btn glow-on-hover-g">View</a>
+
                 </div>
             </div>
         </div>
         {% endfor %}
-        
         <br>
-        <center><a href="{{ url_for('invoiceAddTo') }}" class="btn glow-on-hover-g"> Add Invoice </a></center>
+        <br>
+        
     </div>
     <!-- Add Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

@@ -1,16 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
-	<title>Glassmorphism button</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Home Page</title>
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('/static/carshop.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-grow: 1;
+    flex-direction: row;
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 20px;
+    width: 200px;
+	height: 60px;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+.btn:hover {
+    background-color: #dddddd;
+    text-decoration: none;
+}
+
+
+    </style>
 </head>
-
 <body>
-	<div class="container">
-		<div class="btn"><a href="{{ url_for('inventory') }}">Orders</a></div>
-		<div class="btn"><a href="{{ url_for('partInventory') }}" >Parts</a></div>
-		<div class="btn"><a href="{{ url_for('invoiceInventory') }}" >Invoices</a></div>
+	<div class="title-bar">
+		<div class="title-content">
+			<img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
+			<!-- Website title -->
+			<h1 class="title-text">IMS Solutions</h1>
+		</div>
+	</div>
+	<br>
+	<center><h1 style="color:white;">Home</h1></center>
+	<br>
+    <div class="container">
+        <div><a class= "btn glow-on-hover" style = "color: black; text-decoration: none;" href="{{ url_for('orderInventory') }}">Orders</a></div>
+        <div><a class= "btn glow-on-hover" style= "color: black; text-decoration: none;" href="{{ url_for('partInventory') }}">Parts</a></div>
+        <div><a class= "btn glow-on-hover" style= "color: black; text-decoration: none;" href="{{ url_for('invoiceInventory') }}">Invoices</a></div>
+		<div><a class= "btn glow-on-hover" style= "color: black; text-decoration: none;" href="{{ url_for('admin_dashboard') }}">Admin</a></div>
+    </div>
 
-	</div>		
 </body>
+
+</html>

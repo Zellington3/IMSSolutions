@@ -1,4 +1,61 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+.card {
+    box-shadow: 0 8px 16px 0 rgb(0, 0, 0);
+    outline-width: 3px;
+    margin: 10px;
+    width: calc(33.33% - 25px); 
+    display: inline-block;
+    border-radius: 10px;
+    height: auto;
+    border: 1px solid black;}
+    
+.card.mb-3 {
+        background-color:white;}
+.card-body {
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; }
+
+.card-text {
+    color: black;
+    font-size: 14px;
+    overflow: hidden; }
+
+.card:after {
+    content: "";
+    display: table;
+    clear: both;}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between;}
+
+.btn {
+    width: 45%;
+    margin-top: 10px;
+    display: block;
+    background-color: rgb(255, 255, 255);
+    margin-right: 7px;
+    border: 1px solid black;}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;}
+
 .title-bar {
     background-color: white;
     display: flex;
@@ -37,7 +94,6 @@
 .nav-link {
     border-right: 1px solid white;}
 
-/* Style for the table */
 #myTable {
     border-collapse: separate;
     border-spacing: 0;
@@ -47,212 +103,21 @@
     border: 1px solid white;
     padding: 8px;
     text-align: left;}
-
-/*GLOW ON HOVER GREEN COLORS*/
-.glow-on-hover-g {
-    font-family: Arial;
-    width: 150px;
-    height: 40px;
-    border: none;
-    outline: none;
-    color: #000000;
-    background: rgb(36, 36, 36);;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;}
-
-.glow-on-hover-g:before {
-    content: '';
-    background: linear-gradient(45deg, #1eff4414, #1eff4443, #1eff4465, #1eff448d, #1eff44a1, #1eff44c4, #1eff44dc, #1eff45, #1eff45);
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 500%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;}
-
-
-.glow-on-hover-g:hover:before {
-    opacity: 1;}
-.glow-on-hover-g:active {
-    color: #000000;}
-
-.glow-on-hover-g:active:after {
-    background: transparent}
-
-.glow-on-hover-g:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    left: 0;
-    top: 0;
-    border-radius: 10px;}
-
-/*GLOW ON HOVER BLUE COLORS*/
-.glow-on-hover-b {
-    font-family: Arial;
-    width: 150px;
-    height: 40px;
-    border: none;
-    outline: none;
-    color: #000000;
-    background: rgb(36, 36, 36);;
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;}
-
-.glow-on-hover-b:before {
-    content: '';
-    background: linear-gradient(45deg, #2db2ff16, #2db2ff3d, #2db2ff80, #2db2ff9c, #2db2ffa8, #2db2ffc9, #2db2ffe2, #2db2ff, #2db2ff);
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 500%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;}
-
-.glow-on-hover-b:hover:before {
-    opacity: 1;}
-.glow-on-hover-b:active {
-    color: #000000;}
-
-.glow-on-hover-b:active:after {
-    background: transparent;}
-
-.glow-on-hover-b:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    left: 0;
-    top: 0;
-    border-radius: 10px;}
-
-/*GLOW ON HOVER RED COLORS*/
-.glow-on-hover-r {
-    font-family: Arial;
-    width: 150px;
-    height: 40px;
-    border: none;
-    outline: none;
-    color: #000000;
-    background: rgb(36, 36, 36);
-    cursor: pointer;
-    position: relative;
-    z-index: 0;
-    border-radius: 10px;}
-
-.glow-on-hover-r:before {
-    content: '';
-    background: linear-gradient(45deg, rgb(255, 0, 0), rgb(200, 0, 0), rgb(170, 0, 0), rgb(130, 0, 0), rgb(100, 0, 0), rgb(130, 0, 0), rgb(170, 0, 0), rgb(200, 0, 0), rgb(255, 0, 0));
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;
-    color:black;}
-
-.glow-on-hover-r:active {
-    color: white;}
-
-.glow-on-hover-r:active:after {
-    background: transparent;}
-
-.glow-on-hover-r:hover:before {
-    opacity: 1;}
-
-.glow-on-hover-r:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    left: 0;
-    top: 0;
-    border-radius: 10px;}
-
 /* GLOW ON HOVER DEFAULT COLORS*/
 .glow-on-hover {
     font-family: Arial;
     width: 150px;
     height: 40px;
-    border: none;
+    border: 1px, solid black;
     outline: none;
     color: #000000;
-    background: #000000;
+    background: #ffffff;
     cursor: pointer;
     position: relative;
     z-index: 0;
     border-radius: 10px;}
 
-.glow-on-hover:before {
-    content: '';
-    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    background-size: 400%;
-    z-index: -1;
-    filter: blur(5px);
-    width: calc(100% + 4px);
-    height: calc(100% + 4px);
-    animation: glowing 20s linear infinite;
-    opacity: 0;
-    transition: opacity .3s ease-in-out;
-    border-radius: 10px;}
-
-.glow-on-hover:active {
-    color: #000000;}
-
-.glow-on-hover:active:after {
-    background: transparent;}
-
-.glow-on-hover:hover:before {
-    opacity: 1;}
-
-.glow-on-hover:after {
-    z-index: -1;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #ffffff;
-    left: 0;
-    top: 0;
-    border-radius: 10px; }
-
-@keyframes glowing {
-    0% { background-position: 0 0; }
-    50% { background-position: 400% 0; }
-    100% { background-position: 0 0; } }
-
+/* Style for the input element */
 #myInput {
     font-size: 18px;
     color: #333;
@@ -276,13 +141,13 @@
     color: #333;
     border-radius: 10px;
     width: 200px; 
-    height: 40px;
+    height: 40px; 
     text-align: center;}
 
 #invoiceTable {
     border-collapse: separate;
     border-spacing: 0;
-    border: 2px solid white; }
+    border: 2px solid white;}
     
 #invoiceTable th, #invoiceTable td {
     border: 1px solid white;
@@ -293,8 +158,8 @@
     font-size: 18px;
     color: #333;
     border-radius: 10px;
-    width: 200px; 
-    height: 40px; 
+    width: 200px;
+    height: 40px;
     text-align: center;}
 
 #payment_method {
@@ -302,6 +167,5 @@
     color: #333;
     border-radius: 10px;
     width: 100%;
-    height: 40px; 
     text-align: center;
-    margin-top: 5px; }
+    margin-top: 5px;}
