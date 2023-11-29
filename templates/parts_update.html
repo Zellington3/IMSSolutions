@@ -44,7 +44,7 @@
         <div class="title-content">
             <img class="title-emblem" style="position: absolute; top: 0; left: 0;"
                 src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
-            <h1 class="title-text">IMS Solutions</h1>
+            <h1 class="title-text">Update Part</h1>
         </div>
     </div>
     <div class="nav-bar">
@@ -55,7 +55,6 @@
     </div>
     <div class="container mt-5">
         <center>
-            <h1 class="mb-4">Update Parts</h1>
         </center>
         <form action="{{ url_for('update_part', item_id=item.id) }}" method="POST">
             <div class="form-group">

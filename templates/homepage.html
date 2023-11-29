@@ -51,6 +51,14 @@ body {
 
 
     </style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var errorMessage = "{{ get_flashed_messages(category_filter='error') | first }}";
+      if (errorMessage) {
+        alert(errorMessage);
+      }
+    });
+  </script>
 </head>
 <body>
 	<div class="title-bar">

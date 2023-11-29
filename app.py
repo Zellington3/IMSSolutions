@@ -2,11 +2,14 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask import jsonify
+from flask import flash
 from jinja2 import Template
 from datetime import datetime, timedelta
+from flask import session
 from collections import defaultdict
 
 app = Flask(__name__, static_url_path='/static')
+app.config['SECRET_KEY'] = 'secret_Id'  
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///orders_inventory.db'
 app.config['SQLALCHEMY_BINDS'] = { 'db2': 'sqlite:///parts_inventory.db',
                                    'db3': 'sqlite:///invoice_inventory.db',
@@ -45,6 +48,7 @@ def status_invoice(total_price, price_paid, date_str):
         return 'Status_InProgress.png'
     else:
         return 'Status_Done.png'
+        
 ##For Total Sales Chart    
 def calculate_total_sales_per_day(items):
     total_sales_per_day = defaultdict(float)
@@ -344,37 +348,50 @@ def homepage():
     return render_template('homepage.html')
 
 #LOGIN AND SIGNUP--------------------------------------------------------
+
+
 @app.route('/admin_dashboard')
 def admin_dashboard():
-    InvItems = InvItem.query.all()
-    
-    # Calculate total sales per day
-    total_sales_per_day = calculate_total_sales_per_day(InvItems)
-    total_sales_per_month = calculate_total_sales_per_month(InvItems)
-    # Assuming order_status_data is a function that returns a dictionary
-    order_status_data_result = order_status_data()
+    # Check if the user is logged in and has an admin role
+    if 'user' in session and session['user']['role'] == 'admin':
+        InvItems = InvItem.query.all()
+        
+        # Calculate total sales per day
+        total_sales_per_day = calculate_total_sales_per_day(InvItems)
+        total_sales_per_month = calculate_total_sales_per_month(InvItems)
+        # Assuming order_status_data is a function that returns a dictionary
+        order_status_data_result = order_status_data()
 
-    return render_template('admin_dashboard.html', total_sales_per_day=jsonify(total_sales_per_day).json, total_sales_per_month=jsonify(total_sales_per_month).json, order_status_data=order_status_data_result)
-
-
+        return render_template('admin_dashboard.html', total_sales_per_day=jsonify(total_sales_per_day).json, total_sales_per_month=jsonify(total_sales_per_month).json, order_status_data=order_status_data_result)
+    else:
+        # Flash a message and redirect to the login page
+        flash('You do not have permission to access the admin dashboard.', 'error')
+        return redirect(url_for('homepage'))
 
 @app.route('/login_route', methods=['POST'])
 def login_route():
     # Get user input from the form
     email = request.form.get('email')
     password = request.form.get('pswd')
+    
     # Check if it's an admin login
     if email == 'admin@gmail.com' and password == 'password':
+        # Set the user session with admin role
+        session['user'] = {'email': email, 'role': 'admin'}
         # Redirect to the admin page on successful admin login
         return redirect(url_for('admin_dashboard'))
-    # Apply admin role to whoever is logged in 
+
     # Query the database for user authentication
     if is_valid_user(email, password):
+        # Set the user session with regular user role
+        session['user'] = {'email': email, 'role': 'user'}
         # Redirect to the homepage on successful login
         return redirect(url_for('homepage'))
     else:
         # Redirect back to the login page with an error message
         return render_template('index.html', error="Invalid credentials")
+
+
 
 @app.route('/signup_route', methods=['POST'])
 def signup_route():
@@ -395,13 +412,10 @@ def signup_route():
     # Redirect to the login page on successful signup
     return redirect(url_for('homepage'))
 
-# Update the function to query the database for user authentication
 def is_valid_user(email, password):
     user = LoginInfo.query.filter_by(email=email).first()
     return user is not None and check_password(password, user.password)
 
-# Function to check if the email is unique (replace this with your own logic)
-# Update the method to check if both email and username are unique
 def is_email_unique(email, username):
     email_exists = LoginInfo.query.filter_by(email=email).first() is not None
     username_exists = LoginInfo.query.filter_by(username=username).first() is not None

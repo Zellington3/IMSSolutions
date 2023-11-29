@@ -43,7 +43,7 @@
             <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
 
             <!-- Website title -->
-            <h1 class="title-text">IMS Solutions</h1>
+            <h1 class="title-text">Add Part</h1>
         </div>
     </div>
     <!-- Navigation bar -->
@@ -54,9 +54,6 @@
         <a href="{{ url_for('homepage') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Home</b></a>
     </div>
     <div style="color:rgb(255, 255, 255);"class="container mt-5">
-        <center>
-            <h1 class="mb-4">Add Parts</h1>
-        </center>
         <form action="{{ url_for('add_part') }}" method="POST">
             <div class="form-group">
                 <label for="part_number">Part Number:</label>

@@ -8,7 +8,7 @@
     border-radius: 10px;
     height: auto;
     border: 1px solid black;}
-    
+  
 .card.mb-3 {
         background-color:white;}
 .card-body {
@@ -73,7 +73,7 @@
     height: 50px; }
 
 .title-text {
-    font-size: 24px; 
+    font-size: 30px; 
     color: black; }
 
 .nav-bar {

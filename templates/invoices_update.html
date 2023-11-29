@@ -19,7 +19,7 @@
     <div class="title-bar">
         <div class="title-content">
             <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
-            <h1 class="title-text">IMS Solutions</h1>
+            <h1 class="title-text">Update Invoice</h1>
         </div>
     </div>
 
@@ -30,7 +30,6 @@
         <a href="{{ url_for('homepage') }}" style="text-decoration: none;" class="nav-button nav-link"><b>Home</b></a>
     </div>
     <div class="container mt-5">
-        <center><h1 class="mb-4">Update Invoice</h1></center>
         <form action="{{ url_for('update_invoice', item_id=item.id) }}" method="POST">
             <div class="form-group">
                 <label for="inv_num">Invoice #:</label>
@@ -103,8 +102,8 @@
                 <input type="date" id="date" name="date" class="form-control" value="{% if item.date %}{{ item.date }}{% endif %}">
             </div>
             <center>
-                <button type="submit" style="margin-right: 20px;" class="btn glow-on-hover">Update Invoice</button>
-                <a href="{{ url_for('invoiceInventory') }}" style="margin-left: 20px;" class="btn glow-on-hover">Back to Invoices</a>
+                <button type="submit" style="background-color: white; margin-right: 20px;" class="btn glow-on-hover">Update Invoice</button>
+                <a href="{{ url_for('invoiceInventory') }}" style="background-color: white; margin-left: 20px;" class="btn glow-on-hover">Back to Invoices</a>
             </center>
         </form>
         <br>

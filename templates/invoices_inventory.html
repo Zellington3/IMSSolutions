@@ -21,6 +21,11 @@
             color: white;
             margin: 0;
             padding: 0;
+            background-image: url('/static/CarParts.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
             background-attachment: fixed;}
 
     </style>
@@ -30,7 +35,7 @@
         <div class="title-content">
             <img class="title-emblem" style="position: absolute; top: 0; left: 0;" src="{{ url_for('static', filename='IMSEmblem.png') }}" alt="IMS Emblem">
             <!-- Website title -->
-            <h1 class="title-text">IMS Solutions</h1>
+            <h1 class="title-text">Invoices</h1>
         </div>
     </div>
     <!-- Navigation bar -->
@@ -43,8 +48,6 @@
 
     <div class="container">
         <br>
-        <br>
-        <center><h1 style="color:black">Invoices</h1></center>
         <br>
         <center><input type="text" id="myInput" placeholder="Search Invoices..."></center>
         <br>
